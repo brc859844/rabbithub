@@ -4,8 +4,8 @@
 
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
 
--include_lib("rabbit_common/include/rabbit.hrl").
--include_lib("rabbit_common/include/rabbit_framing.hrl").
+-include_lib("rabbit-common/include/rabbit.hrl").
+-include_lib("rabbit-common/include/rabbit_framing.hrl").
 -include("rabbithub.hrl").
 
 -record(state, {subscription, queue_name}).
@@ -37,6 +37,7 @@ really_init(Subscription = #rabbithub_subscription{resource = Resource,
     QueueName = rabbithub:r(queue, rabbit_guid:binary(rabbit_guid:gen(), "amq.http.pseudoqueue")),
     Q = pseudo_queue(QueueName, self()),
     Q = rabbit_amqqueue:internal_declare(Q, false),
+
    case rabbit_binding:add(#binding{source      = Resource,
                                     destination = QueueName,
                                     key         = list_to_binary(Topic),

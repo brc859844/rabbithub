@@ -1,0 +1,32 @@
+[
+  {kernel, [
+
+  ]},
+  {rabbit, [
+    {tcp_listen_options, [binary, {packet,raw},
+                                  {reuseaddr,true},
+                                  {backlog,128},
+                                  {nodelay,true},
+                                  {exit_on_close,false},
+                                  {keepalive,false},
+                                  {linger, {true,0}}]},
+
+    {log_levels, [{ connection, debug }]},
+
+    {default_user, <<"guest">>},
+    {default_pass, <<"guest">>},
+    {heartbeat, 580}
+
+  ]},
+ {rabbithub, [
+        {http_client_options, [
+                                {max_keep_alive_length, 0},
+                                {max_pipeline_length, 0},
+                                {max_sessions, 4}
+        ]},
+	{requeue_on_http_post_error, false},
+	{unsubscribe_on_http_post_error_limit, 5},
+	{unsubscribe_on_http_post_error_timeout_microseconds, 60000000}	
+    ]}
+].
+

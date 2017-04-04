@@ -1,4 +1,4 @@
-VSN=3.5.6
+VSN=3.6.6
 PACKAGE=rabbithub-$(VSN)
 DIST_DIR=dist
 EBIN_DIR=ebin
@@ -13,6 +13,7 @@ all: compile package
 clean:
 	rm -rf $(DIST_DIR)
 	rm -rf $(EBIN_DIR)
+	rm -rf $(DEPS_DIR)
 
 distclean: clean
 	rm -rf $(DEPS_DIR)
@@ -30,6 +31,7 @@ install: package
 
 $(DEPS_DIR):
 	./rebar get-deps
+	cd ./deps/rabbit-common; make
 
 $(DEPS_EZ): 
 	cd $(DEPS_DIR); $(foreach DEP, $(DEPS), zip -r $(DEP).ez $(DEP);)
