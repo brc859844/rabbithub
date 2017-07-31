@@ -1204,7 +1204,7 @@ perform_request('POST', endpoint, '', exchange, Resource, ParsedQuery, Req) ->
                 undefined -> {undefined, undefined};
                 HV -> {CorrIdHeaderName, list_to_binary(HV)}
             end;
-        _ -> undefined
+        _ -> {undefined, undefined}
     end,         
     RespCorrHdr = case CorrId of 
         undefined -> undefined;
